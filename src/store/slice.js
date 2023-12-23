@@ -19,7 +19,6 @@ const todoSlice = createSlice(
         initialState,
         reducers:{
             addTodo: (state,action)=>{
-                // console.log(action.payload);
                 const todo = {
                     id : nanoid(),
                     category: action.payload.category,
@@ -32,9 +31,11 @@ const todoSlice = createSlice(
                 temp.push(...state.todos)
                 state.todos = temp               
             },
+
             deleteTodo:(state,action)=>{
                 state.todos = state.todos.filter((todo)=> todo.id !== action.payload)
             },
+
             toggleCompleted:(state,action)=>{
                 state.todos.map((todo)=>{
                     if(action.payload === todo.id){
@@ -42,6 +43,7 @@ const todoSlice = createSlice(
                     }
                 })
             },
+
             updateTodo: (state,action)=>{
                 state.todos.map((todo)=>{
                     if(action.payload.id === todo.id){
@@ -49,23 +51,20 @@ const todoSlice = createSlice(
                     }
                 })
             },
+
             addCategory:(state,action)=>{
-                console.log(action.payload);
                 
                 const category = {
+                    id:nanoid(),
                     name: action.payload
                 }
-                // state.categories.push(category);
 
-                state.categories =  [category,...state.categories]
-
-                state.categories.map((data) => {
-                  console.log(data.name);
-                });
+                state.categories =  [category,...state.categories]          
             },
+            
             deleteCategory:(state,action)=>{
-                state.categories = state.categories.filter((category)=>category.name !== action.payload)
-                state.todos = state.todos.filter((todo)=> todo.category !== action.payload)
+                state.categories = state.categories.filter((category)=>category.id !== action.payload.id)
+                state.todos = state.todos.filter((todo)=> todo.category !== action.payload.name)
             }
         }
 

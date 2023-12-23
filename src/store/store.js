@@ -14,7 +14,6 @@ const loadState = () => {
 };
 
 
-
 const store = configureStore({
   reducer: slice,
   preloadedState: loadState(),

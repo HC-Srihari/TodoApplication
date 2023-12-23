@@ -7,16 +7,24 @@ import { Link } from 'react-router-dom';
 function AddTodo() {
     const {type} = useParams()
   const [todo,setTododo] = useState('');
+  const [errorMsg,setErrorMsg]= useState('')
     const dispatch = useDispatch()
     const handleSubmit =(e)=>{
         e.preventDefault()
-        // console.log(todo);
+
+        if(todo.trim().length === 0){
+          setErrorMsg('Todo cannot be empty !!!');
+          setTimeout(()=>{
+            setErrorMsg('')
+          },1500)
+          setTododo('')
+          return
+        }
         
         const todoItem  = {
             category:type,
-            text:todo
+            text:todo.trim()
         }
-        console.log(todoItem);
         dispatch(addTodo(todoItem))
         setTododo('')
     }
@@ -27,10 +35,12 @@ function AddTodo() {
       <Link to={'/'}>
         <button className="p-2 bg-blue-500 text-white rounded-md">Back to Home</button>
       </Link>
-      <br />
-      <br />
+      
+    <p className={`text-red-500 text-xl  h-3`}>{errorMsg}</p>
+    <br />
     <div className="flex items-center justify-center">
   <form onSubmit={handleSubmit} className="flex mb-2">
+    
     <input
       type="text"
       value={todo}
@@ -41,6 +51,7 @@ function AddTodo() {
       Add Todo
     </button>
   </form>
+  
 
 
 </div>

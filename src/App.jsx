@@ -5,12 +5,10 @@ import './App.css'
 import AddCategory from './components/AddCategory'
 import CategoryCards from './components/CategoryCards'
 import { Outlet } from 'react-router'
-import { setTodos,setCategory } from './store/slice'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function App() {
 
-  // const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
   useEffect(() => {
